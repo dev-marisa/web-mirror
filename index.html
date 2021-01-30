@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  
+  <video>loading...</video>
+  
+  <script>
+    const constraints = { 
+      video: {
+        width: { min: 1024, ideal: 1280, max: 1920 },
+        height: { min: 576, ideal: 720, max: 1080 },
+        facingMode: "user"
+      }
+    };
+  
+    navigator.mediaDevices.getUserMedia(constraints)
+    .then(function(mediaStream) {
+      const video = document.querySelector('video');
+      video.srcObject = mediaStream;
+      video.onloadedmetadata = function(e) {
+        video.play();
+      };
+    })
+    .catch(function(err) { console.error(err.name + ": " + err.message); });
+  </script>
+  
+  <!-- Some MDN Documentation -->
+  <!-- https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia -->
+  
+</body>
+</html>
